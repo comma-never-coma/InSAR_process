@@ -1,7 +1,10 @@
-InSAR_process
+# InSAR Process
+
 Open Source SBAS-InSAR Framework From Comma "douhao_zy@163.com"
 
-构建镜像前，请先填充config_files/cdsapirc, config_files/netrc中的账户信息！
+构建镜像前，请先填充`config_files/cdsapirc`，`config_files/netrc`中的账户信息！
+
+```bash
 docker build --rm --force-rm -t insar_process:v1.0 -f Dockerfile .
 xhost +
 docker run -itd --privileged=true --net=host --shm-size 4g --gpus=all --name insar -e DISPLAY=$DISPLAY -v /media/comma/InSAR2/Mexico/:/opt/data insar_process:v1.0
@@ -62,6 +65,6 @@ for ((idx=1; idx<=$(($(ls ${runfiles_path}/run_16* 2>/dev/null | wc -l)-1)); idx
 unw=`find ${working_directory} -name "filt_fine.unw" | sed -n "1p"` && gdal_translate ${unw} -b 1 -of ISCE ${working_directory}/magnitude && generate_mask.py ${working_directory}/magnitude --min 1 -o ${working_directory}/waterMask.h5 && rm ${working_directory}/magnitude*
 
 smallbaselineApp.py ./mexicoSentinel.txt
-退出容器...
 
+退出容器...
 docker stop insar && docker rm insar
