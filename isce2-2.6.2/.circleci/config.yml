@@ -1,0 +1,257 @@
+version: 2.1
+jobs:
+  test-cmake:
+    docker:
+      - image: ubuntu:20.04
+    steps:
+      - checkout:
+          path: /root/project/src
+
+      - run:
+          name: Install ISCE requirements
+          command: |
+            set -ex
+            pwd
+            export DEBIAN_FRONTEND=noninteractive
+            apt-get update
+            apt-get install -y cmake cython3 git libfftw3-dev libgdal-dev libhdf4-alt-dev libhdf5-dev libopencv-dev python3-gdal python3-h5py python3-numpy python3-scipy
+
+      - run:
+          name: Build and Install ISCE
+          command: |
+            set -ex
+            cd /root/project/src
+            mkdir build
+            cd build
+            MODPATH=$(python3 -c "import site; print(site.getsitepackages()[-1])")
+            cmake .. -DCMAKE_INSTALL_PREFIX=install -DPYTHON_MODULE_DIR=$MODPATH
+            make install VERBOSE=y
+
+      - run:
+          name: Test ISCE installation
+          command: |
+            set -ex
+            cd /root/project/src/build
+            ctest --output-on-failure
+            ISCE2DIR=$(python3 -c "import os, isce2; print(os.path.dirname(isce2.__file__))" | tail -n 1)
+            export PATH=$ISCE2DIR/applications:$PATH
+            topsApp.py --help --steps
+            stripmapApp.py --help --steps
+            python3 -c "import isce"
+            # Create dummy ref/secondary configs for topsApp
+            ln -s ../examples/input_files/reference_TOPS_SENTINEL1.xml reference.xml
+            ln -s reference.xml secondary.xml
+            topsApp.py --steps --end=preprocess ../examples/input_files/topsApp.xml
+
+  test:
+    docker:
+      - image: ubuntu:20.04
+    steps:
+      - checkout:
+          path: /root/project/src 
+
+      - run:
+          name: Install ISCE requirements
+          command: |
+            set -ex
+            pwd
+            mkdir config build install
+            export DEBIAN_FRONTEND=noninteractive
+            apt-get update
+            apt-get install -y scons cython3 git libfftw3-dev libgdal-dev libhdf4-alt-dev libhdf5-dev libmotif-dev libopencv-dev libx11-dev python3-gdal python3-h5py python3-numpy python3-scipy
+
+      - run:
+          name: Build SConfigISCE and setup dirs
+          command: |
+              set -ex
+              pwd
+              cd config
+              echo "PRJ_SCONS_BUILD = /root/project/build" > SConfigISCE
+              echo "PRJ_SCONS_INSTALL = /root/project/install/isce" >> SConfigISCE
+              echo "LIBPATH = /usr/lib64 /usr/lib /usr/lib/x86_64-linux-gnu" >> SConfigISCE
+              python_inc="/usr/include/python3.8 /usr/lib/python3/dist-packages/numpy/core/include"
+              echo "CPPPATH = $python_inc /usr/include /usr/include/gdal /usr/include/opencv4" >> SConfigISCE
+              echo "FORTRANPATH =  /usr/include" >> SConfigISCE
+              echo "FORTRAN = /bin/gfortran" >> SConfigISCE
+              echo "CC = /bin/gcc" >> SConfigISCE
+              echo "CXX = /bin/g++" >> SConfigISCE
+              echo "MOTIFLIBPATH = /usr/lib64" >> SConfigISCE
+              echo "X11LIBPATH = /usr/lib64" >> SConfigISCE
+              echo "MOTIFINCPATH = /usr/include" >> SConfigISCE
+              echo "X11INCPATH = /usr/include" >> SConfigISCE
+              echo "RPATH = /usr/lib64 /usr/lib" >> SConfigISCE
+              cat SConfigISCE
+
+      - run:
+          name: Build and Install ISCE
+          command: |
+            set -ex
+            pwd
+            cd src
+            SCONS_CONFIG_DIR=/root/project/config scons install --skipcheck
+
+      - run:
+          name: Test ISCE installation
+          command: |
+              set -ex
+              pwd
+              ISCE_HOME=/root/project/install/isce
+              export PATH="$ISCE_HOME/bin:$ISCE_HOME/applications:$PATH"
+              export PYTHONPATH="/root/project/install:$PYTHONPATH"
+              topsApp.py --help --steps
+              stripmapApp.py --help --steps
+              python3 -c "import isce"
+              python3 -c "import isce; from isceobj.Sensor import SENSORS as s; [s[k]() for k in s]"
+  build:
+    docker:
+      - image: docker:stable-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --no-cache \
+              python3-dev py3-pip bash pigz build-base libffi-dev openssl-dev \
+              docker-compose aws-cli
+      - run:
+          name: Build docker image
+          command: |
+            mkdir images
+            SHA1=$(echo $CIRCLE_SHA1 | cut -c1-7)
+            echo "export TAG=$SHA1" >> images/env.sh
+            source images/env.sh
+            docker build --rm --force-rm -t isce/isce2:$TAG -f docker/Dockerfile .
+            cd images
+            docker save isce/isce2:$TAG > isce2.tar
+      - persist_to_workspace:
+          root: images
+          paths:
+            - "*"
+  build-release:
+    docker:
+      - image: docker:stable-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --no-cache \
+              python3-dev py3-pip bash pigz build-base libffi-dev openssl-dev \
+              docker-compose aws-cli
+      - run:
+          name: Build docker image
+          command: |
+            mkdir images
+            echo "export TAG=$CIRCLE_TAG" >> images/env.sh
+            source images/env.sh
+            docker build --rm --force-rm -t isce/isce2:$TAG -f docker/Dockerfile .
+            cd images
+            docker save isce/isce2:$TAG > isce2.tar
+      - persist_to_workspace:
+          root: images
+          paths:
+            - "*"
+  build-periodically:
+    docker:
+      - image: docker:stable-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --no-cache \
+              python3-dev py3-pip bash pigz build-base libffi-dev openssl-dev \
+              docker-compose aws-cli
+      - run:
+          name: Build docker image
+          command: |
+            mkdir images
+            echo 'export TAG=$(date -u +%Y%m%d)' >> images/env.sh
+            source images/env.sh
+            docker build --rm --force-rm -t isce/isce2:$TAG -f docker/Dockerfile .
+            cd images
+            docker save isce/isce2:$TAG > isce2.tar
+      - persist_to_workspace:
+          root: images
+          paths:
+            - "*"
+  deploy:
+    docker:
+      - image: docker:stable-git
+    steps:
+      - setup_remote_docker
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --no-cache \
+              curl file
+      - attach_workspace:
+          at: images
+      - run:
+          name: Deploy
+          command: |
+            cd images
+            source env.sh
+            docker load -i isce2.tar
+            docker tag isce/isce2:$TAG isce/isce2:latest
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push isce/isce2:$TAG
+            docker push isce/isce2:latest
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
+      - test-cmake
+      - build
+  build-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: main
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: main
+  build-deploy-release:
+    jobs:
+      - build-release:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - deploy:
+          requires:
+            - build-release
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+  weekly:
+    triggers:
+      - schedule:
+          cron: "0 7 * * 0"
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - build-periodically:
+          filters:
+            branches:
+              only: main
+      - deploy:
+          requires:
+            - build-periodically
+          filters:
+            branches:
+              only: main

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <data xmlns="http://www.netbeans.org/ns/make-project-private/1">
+        <activeConfTypeElem>1</activeConfTypeElem>
+        <activeConfIndexElem>0</activeConfIndexElem>
+    </data>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>CArea.cpp</url>
+            <bookmark id="1">
+                <name/>
+                <line>3</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/sergey/DUAP-InSAR/MSBASv3/main.cpp</file>
+            <file>file:/home/sergey/DUAP-InSAR/MSBASv3/CInterferogram.cpp</file>
+            <file>file:/home/sergey/DUAP-InSAR/MSBASv3/CParam.cpp</file>
+            <file>file:/home/sergey/DUAP-InSAR/MSBASv3/CArea.cpp</file>
+        </group>
+    </open-files>
+</project-private>

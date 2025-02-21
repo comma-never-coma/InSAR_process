@@ -1,0 +1,11 @@
+*.pyc
+*~
+*.swp
+*.DS_Store
+__pycache__
+.sconf_temp
+.sconsign.dblite
+config.log
+insar.log
+isce.log
+.ipynb_checkpoints

@@ -1,0 +1,127 @@
+hello to MSBASv3(20181127)
+number of threads available for parallel processing with OpenMP: 56
+
+provided parameters:
+FORMAT=1
+FILE_SIZE=789,812
+WINDOW_SIZE=0,788,0,811
+C_FLAG=1,670,370,32,32
+R_FLAG=2,0.1
+I_FLAG=2,par.txt
+SET=215500,339.099991,26.112200,asc.txt
+SET=114852,-163.561597,26.151000,dsc.txt
+
+computed parameters:
+WIDTH=789 LENGTH=812
+CPOS[0]=670, LPOS[0]=370
+
+reading set 0 file asc.txt directional cosines [-0.15701123, -0.41117176, 0.89793390]:
+
+0: asc/20141216_HH_20150109_HH.disp.geo.bin -134.814700 20141216 20150109
+1: asc/20150109_HH_20150202_HH.disp.geo.bin 140.286400 20150109 20150202
+2: asc/20150202_HH_20150226_HH.disp.geo.bin -98.237100 20150202 20150226
+3: asc/20150226_HH_20150322_HH.disp.geo.bin 81.508800 20150226 20150322
+
+detected 5 SLCs [NAME DATE SNUM MCOUNT SCOUNT]:
+    0: 20141216T215500 2014.95866629     0     1     0
+    1: 20150109T215500 2015.02441971     0     1     1
+    2: 20150202T215500 2015.09017314     0     1     1
+    3: 20150226T215500 2015.15592656     0     1     1
+    4: 20150322T215500 2015.22167998     0     0     1
+
+reading set 1 file dsc.txt directional cosines [-0.12472206, 0.42272294, 0.89763564]:
+
+0: dsc/20150106_HH_20150130_HH.disp.geo.bin -204.596500 20150106 20150130
+1: dsc/20150130_HH_20150223_HH.disp.geo.bin -94.849500 20150130 20150223
+2: dsc/20150223_HH_20150319_HH.disp.geo.bin 109.509600 20150223 20150319
+
+detected 4 SLCs [NAME DATE SNUM MCOUNT SCOUNT]:
+    0: 20150106T114852 2015.01504731     1     1     0
+    1: 20150130T114852 2015.08080074     1     1     1
+    2: 20150223T114852 2015.14655416     1     1     1
+    3: 20150319T114852 2015.21230758     1     0     1
+
+detected ascending and descending data: applying MSBAS processing...
+
+computed overall temporal coverage: 20150106T114852-20150319T114852 or 2015.01504731-2015.21230758
+
+selected 7 SLCs for SVD processing - NAME DATE SNUM MCOUNT SCOUNT: 
+    0: 20150106T114852 2015.01504731     1     1     0
+    1: 20150109T215500 2015.02441971     0     1     1
+    2: 20150130T114852 2015.08080074     1     1     1
+    3: 20150202T215500 2015.09017314     0     1     1
+    4: 20150223T114852 2015.14655416     1     1     1
+    5: 20150226T215500 2015.15592656     0     1     1
+    6: 20150319T114852 2015.21230758     1     0     1
+
+excluding interferograms outside of common time span and computing boundary correction...
+
+set 0:
+excluded interferograms:
+computed boundary correction:
+    0: asc/20141216_HH_20150109_HH.disp.geo.bin 0.14253858 20150106T114852
+    3: asc/20150226_HH_20150322_HH.disp.geo.bin 0.85746139 20150319T114852
+
+detected 5 SLCs [NAME DATE SNUM MCOUNT SCOUNT]:
+    0: 20150106T114852 2015.01504731     0     1     0
+    1: 20150109T215500 2015.02441971     0     1     1
+    2: 20150202T215500 2015.09017314     0     1     1
+    3: 20150226T215500 2015.15592656     0     1     1
+    4: 20150319T114852 2015.21230758     0     0     1
+
+set 1:
+excluded interferograms:
+computed boundary correction:
+
+detected 4 SLCs [NAME DATE SNUM MCOUNT SCOUNT]:
+    0: 20150106T114852 2015.01504731     1     1     0
+    1: 20150130T114852 2015.08080074     1     1     1
+    2: 20150223T114852 2015.14655416     1     1     1
+    3: 20150319T114852 2015.21230758     1     0     1
+
+reading interferograms (order is managed by OpenMP and may appear irregular)...
+
+set 0:
+    0: asc/20141216_HH_20150109_HH.disp.geo.bin
+    1: asc/20150109_HH_20150202_HH.disp.geo.bin
+    3: asc/20150226_HH_20150322_HH.disp.geo.bin
+    2: asc/20150202_HH_20150226_HH.disp.geo.bin
+
+set 1:
+    1: dsc/20150130_HH_20150223_HH.disp.geo.bin
+    2: dsc/20150223_HH_20150319_HH.disp.geo.bin
+    0: dsc/20150106_HH_20150130_HH.disp.geo.bin
+
+computing ZSCORE_MASK...
+
+selected 94% coherent pixels for further processing
+
+calibrating interferograms by computing and removing offset (order is managed by OpenMP and may appear irregular)...
+
+Set 0:
+    0: asc/20141216_HH_20150109_HH.disp.geo.bin -0.00258311
+    1: asc/20150109_HH_20150202_HH.disp.geo.bin -0.08557099
+    2: asc/20150202_HH_20150226_HH.disp.geo.bin 0.00543948
+    3: asc/20150226_HH_20150322_HH.disp.geo.bin 0.01088459
+
+Set 1:
+    1: dsc/20150130_HH_20150223_HH.disp.geo.bin 0.02287208
+    2: dsc/20150223_HH_20150319_HH.disp.geo.bin 0.00124968
+    0: dsc/20150106_HH_20150130_HH.disp.geo.bin 0.01950066
+
+starting SVD inversion... 
+inversion parameters for problem Ax=Y:
+A: 12 x 17
+x: 789 x 12
+Y: 789 x 17
+in summary 12 unknowns & 17 equations
+successfully allocated 35 MB of RAM for output data
+SVD inversion completed successfully
+computed ||x|| and ||Ax-Y|| norms: 4.29189190 0.03194658
+
+starting post processing... 
+computing linear rate(s)
+writing results to a disk
+writing results (YYMMDDTHHMMSS YYYY.YYYYYY [for each dimension] DISP DISP_ERROR) to a file MSBAS_220_510_5_5.txt
+writing results (YYMMDDTHHMMSS YYYY.YYYYYY [for each dimension] DISP DISP_ERROR) to a file MSBAS_290_210_5_5.txt
+good bye

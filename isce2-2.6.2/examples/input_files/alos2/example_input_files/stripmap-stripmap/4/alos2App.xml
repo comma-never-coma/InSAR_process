@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alos2App>
+  <component name="alos2insar">
+
+    <property name="reference directory">../../../z_common_data/insarzd_test_dataset/gorkha/a157/150502</property>
+    <property name="secondary directory">../../../z_common_data/insarzd_test_dataset/gorkha/a157/150725</property>
+    <property name="reference frames">[0540, 0550, 0560]</property>
+    <property name="secondary frames">[0540, 0550, 0560]</property>
+
+    <property name="dem for coregistration">../../../z_common_data/insarzd_test_dataset/gorkha/dem/demLat_N22_N33_Lon_E078_E092.dem.wgs84</property>
+    <property name="dem for geocoding">../../../z_common_data/insarzd_test_dataset/gorkha/dem/3/demLat_N22_N33_Lon_E078_E092.dem.wgs84</property>
+    <property name="water body">/net/kraken/nobak/cunrenl/z_common_data/insarzd_test_dataset/gorkha/wbd/swbdLat_N22_N33_Lon_E078_E092.wbd</property>
+
+    <property name="use GPU">True</property>
+
+  </component>
+</alos2App>

@@ -1,0 +1,18 @@
+# vim: set filetype=cfg:
+mintpy.compute.cluster = local
+########## 1. Load Data (--load to exit after this step)
+## load_data.py -H to check more details and example inputs.
+mintpy.load.processor  = isce
+mintpy.load.autoPath   = yes
+
+mintpy.reference.lalo  = -0.30,-91.43
+mintpy.unwrapError.method                       = phase_closure
+mintpy.unwrapError.numSample                    = 20
+mintpy.networkInversion.weightFunc              = no
+mintpy.solidEarthTides                          = yes
+mintpy.troposphericDelay.weatherModel           = ERA5
+mintpy.topographicResidual.pixelwiseGeometry    = no
+mintpy.topographicResidual.stepDate             = 20170910,20180613  #eruption dates
+mintpy.deramp          = linear
+mintpy.save.hdfEos5    = yes
+mintpy.plot.maxMemory  = 2

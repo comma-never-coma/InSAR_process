@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alos2App>
+  <component name="alos2insar">
+
+    <property name="reference directory">../../../z_common_data/insarzd_test_dataset/kumamoto/d028l/141114</property>
+    <property name="secondary directory">../../../z_common_data/insarzd_test_dataset/kumamoto/d028l/160415</property>
+    <property name="reference frames">[2920]</property>
+    <property name="secondary frames">[2920]</property>
+
+    <property name="dem for coregistration">../../../z_common_data/insarzd_test_dataset/kumamoto/dem/demLat_N29_N37_Lon_E125_E133.dem.wgs84</property>
+    <property name="dem for geocoding">../../../z_common_data/insarzd_test_dataset/kumamoto/dem/3/demLat_N29_N37_Lon_E125_E133.dem.wgs84</property>
+    <property name="water body">../../../z_common_data/insarzd_test_dataset/kumamoto/wbd/swbdLat_N29_N37_Lon_E125_E133.wbd</property>
+
+    <property name="use GPU">True</property>
+
+  </component>
+</alos2App>

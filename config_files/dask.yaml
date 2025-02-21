@@ -1,0 +1,4 @@
+temporary-directory: /tmp  # Directory for local disk like /tmp, /scratch, or /local
+
+# If you share the same machine with others, use the following instead to avoid permission issues.
+# temporary-directory: /tmp/{replace_this_with_your_user_name}

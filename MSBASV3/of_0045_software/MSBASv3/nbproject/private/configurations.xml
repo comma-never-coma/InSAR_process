@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <platform>2</platform>
+      </toolsSet>
+      <dbx_gdbdebugger version="1">
+        <gdb_pathmaps>
+        </gdb_pathmaps>
+        <gdb_interceptlist>
+          <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
+        </gdb_interceptlist>
+        <gdb_options>
+          <DebugOptions>
+            <option name="debug_command"
+                    value="&quot;${OUTPUT_PATH}&quot;  /media/sergey/DATA4TB/Geysers/RS2_45772_Descending_Right_U21_HH_Constant-beta/sbas/MSBAS_RS2_45772_Descending_Right_U21_HH_Constant-beta_PAR.txt"/>
+            <option name="debug_dir"
+                    value="/media/sergey/DATA4TB/Geysers/RS2_45772_Descending_Right_U21_HH_Constant-beta/sbas/"/>
+          </DebugOptions>
+        </gdb_options>
+        <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
+      </dbx_gdbdebugger>
+      <nativedebugger version="1">
+        <engine>gdb</engine>
+      </nativedebugger>
+      <runprofile version="9">
+        <runcommandpicklist>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"  /home/sergey/NetBeansProjects/MSBASv2/header.txt</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"  header.txt</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"  /DATA12TB2/Naples/data/RS2_75510_Ascending_Right_XF0W2_HH_PointTarget/sbas/sbas.par</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"  /DATA12TB1/Yellowstone/RS2_6122_Ascending_Right_U10W2_HH_PointTarget/sbas_header.txt</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"  /DATA6TB3/Barnes/RS2_63848_Ascending_Right_F0W1_HH_PointTarget/sbas/MSBAS_RS2_63848_Ascending_Right_F0W1_HH_PointTarget_PAR.txt</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"  /media/sergey/DATA12T3/Indonesia/RS2_28279_Ascending_Right_U13W2_HH_Constant-beta/sbas/MSBAS_RS2_28279_Ascending_Right_U13W2_HH_Constant-beta_PAR.txt</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"  /media/sergey/DATA4TB/Geysers/RS2_45772_Descending_Right_U21_HH_Constant-beta/sbas/MSBAS_RS2_45772_Descending_Right_U21_HH_Constant-beta_PAR.txt</runcommandpicklistitem>
+        </runcommandpicklist>
+        <runcommand>"${OUTPUT_PATH}"  /media/sergey/DATA4TB/Geysers/RS2_45772_Descending_Right_U21_HH_Constant-beta/sbas/MSBAS_RS2_45772_Descending_Right_U21_HH_Constant-beta_PAR.txt</runcommand>
+        <rundir>/media/sergey/DATA4TB/Geysers/RS2_45772_Descending_Right_U21_HH_Constant-beta/sbas/</rundir>
+        <buildfirst>true</buildfirst>
+        <terminal-type>0</terminal-type>
+        <remove-instrumentation>0</remove-instrumentation>
+        <environment>
+        </environment>
+      </runprofile>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <platform>2</platform>
+      </toolsSet>
+      <dbx_gdbdebugger version="1">
+        <gdb_pathmaps>
+        </gdb_pathmaps>
+        <gdb_interceptlist>
+          <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
+        </gdb_interceptlist>
+        <gdb_options>
+          <DebugOptions>
+          </DebugOptions>
+        </gdb_options>
+        <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
+      </dbx_gdbdebugger>
+      <nativedebugger version="1">
+        <engine>gdb</engine>
+      </nativedebugger>
+      <runprofile version="9">
+        <runcommandpicklist>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+        </runcommandpicklist>
+        <runcommand>"${OUTPUT_PATH}"</runcommand>
+        <rundir></rundir>
+        <buildfirst>true</buildfirst>
+        <terminal-type>0</terminal-type>
+        <remove-instrumentation>0</remove-instrumentation>
+        <environment>
+        </environment>
+      </runprofile>
+    </conf>
+  </confs>
+</configurationDescriptor>
